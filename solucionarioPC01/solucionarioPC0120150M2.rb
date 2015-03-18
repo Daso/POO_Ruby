@@ -53,8 +53,8 @@ puts empleado.impuesto
 
 empleado2 = Empleado.new("Sonia", "Fernandez", "09984555")
 pago4 = Pago.new(100000, true, "pagoEnero")
-pago5 = Pago.new(100000, false, "pagoFebrero")
-pago6 = Pago.new(100000, false, "pagoMarzo")
+pago5 = Pago.new(100000, true, "pagoFebrero")
+pago6 = Pago.new(100000, true, "pagoMarzo")
 
 empleado2.agregar_pago(pago4)
 empleado2.agregar_pago(pago5)
