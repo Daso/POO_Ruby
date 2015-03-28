@@ -1,23 +1,29 @@
-def explode
- raise "boom" if rand(10) == 0
+def explota
+  a = rand(10)
+  puts a
+  raise "BOOM" if a == 0
 end
 
-def risky
+def riesgo
   begin
-    10.times do
-      explode
-    end
-   rescue TypeError
-     puts $!
-   end
-   "hello"
-end 
+  	10.times do
+  	  explota	
+  	end
+  rescue TypeError
+    puts $!
+  end
+  "Todo bien"
+end
 
-def defuse
+def cortar_cable
   begin
-    puts risky
+  	puts riesgo
   rescue RuntimeError => e
-    puts e.message
+  	puts e.message
+  else
+  	puts "Nada malo se dio"
+  ensure
+  	puts "Fin del programa"
   end
 end
-defuse
+cortar_cable
