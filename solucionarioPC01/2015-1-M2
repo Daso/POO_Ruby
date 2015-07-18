@@ -1,0 +1,103 @@
+=begin 
+  Una Empresa de venta de seguros de vida y salud desea uniformizar los cobros de los seguros de los clientes para que puedan pagar una sola cuota. 
+
+Para ello de debe tener presente que un cliente puede tener varios seguros. 
+
+Los clientes son registrados con sus datos personales: nombre, apellido, dni y edad. Los seguros se cobran tomando en cuenta lo siguiente:
+
+Cantidad de Seguros	Descuento
+
+3 – 5					10%
+6 – 9					15%
+más de 9				20%
+
+Este decuento de aplica sobre el total a pagar. Los seguros tienen un nombre, tipo y monto anual.
+
+La suma de todos los montos anuales de los seguros, con el descuento aplicado y dividido entre los 12 meses del año da como resultado el pago mensual del cliente. 
+
+Desarrollar:
+
+1)	Las clases adecuadas para el desarrollo del caso. (3 puntos)
+2)	Método que calcule el pago total del cliente.  (3 puntos)
+3)	Registro de los seguros a la cuenta de un cliente.  (4 puntos)
+
+=end
+
+class Cliente
+	attr_accessor :total, :seguro
+  def initialize(nombre, apellido, dni, edad)
+  	@nombre = nombre
+  	@apellido = apellido
+  	@dni = dni
+  	@edad = edad
+  	@total = 0
+  	@seguros = Array.new
+  end
+  
+  def agregar_seguro(seguro)
+    @seguros << seguro
+  end
+
+  def procesar_pago
+    total_a_pagar
+    total_a_pagar_con_descuento
+  end
+
+  def descuento
+    case cantidad_de_seguros
+    when 0..2
+      0.0
+    when 3..5
+    	0.1
+    when 6..9
+    	0.15
+    else
+    	0.2
+    end
+  end
+
+  def total_a_pagar  	
+    @seguros.each do |seguro|
+      @total += seguro.monto
+    end
+    @monto
+  end
+
+  def cantidad_de_seguros
+    @seguros.size
+  end
+
+  def total_a_pagar_con_descuento
+    descuento_final = descuento
+    @total = @total - (@total * descuento_final)
+  end
+  
+  def cuota
+    (@total / 12).round(2)
+  end
+
+end
+
+class Seguro
+	attr_reader :monto
+  def initialize(nombre, tipo, monto)
+  	@nombre = nombre
+  	@tipo = tipo
+  	@monto = monto
+  end
+end
+
+cliente01 = Cliente.new("Carlos", "Perez", "09233344", 12)
+seguro01 = Seguro.new("Seguro Rimac", "Vida", 1000.0)
+seguro02 = Seguro.new("Seguro Onco", "Salud", 700.0)
+seguro03 = Seguro.new("Seguro Carro", "Carro", 1700.0)
+seguro04 = Seguro.new("Seguro Vida", "Salud", 2700.0)
+seguro05 = Seguro.new("Seguro Especial", "Completo", 3700.0)
+cliente01.agregar_seguro(seguro01)
+cliente01.agregar_seguro(seguro02)
+cliente01.agregar_seguro(seguro03)
+cliente01.agregar_seguro(seguro04)
+cliente01.agregar_seguro(seguro05)
+
+cliente01.procesar_pago
+puts cliente01.inspect
