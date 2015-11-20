@@ -20,7 +20,7 @@ class Ebike
   def log(km)
     @kilometers += km
     changed
-    notify_observers(self, kilometers)
+    notify_observers(self, km)
   end
 end
 
