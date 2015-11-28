@@ -1,0 +1,36 @@
+class MiExcepcion < StandardError
+
+end
+
+class CuentaBancaria
+  def initialize(saldo = 0)
+  	@saldo = saldo
+  end
+
+  def retiro(monto)
+  	raise TypeError, "Se espera un entero" if not monto.is_a? Integer
+  	raise MiExcepcion, "No puede ser negativo el monto" if monto < 0
+  	raise MiExcepcion, "No puede ser valorer mayores a 1000" if monto > 1000  	 
+    @saldo = @saldo - monto
+  end
+
+  def reporte
+    "Su saldo es: #{@saldo}"
+  end 
+end
+
+begin
+  cuenta = CuentaBancaria.new(100)
+  cuenta.retiro(5)
+  puts cuenta.reporte
+rescue MiExcepcion => e 
+  puts "Ingreso no permitido: #{e.message}"
+rescue TypeError => e
+  puts "Error de ingreso de dato #{e.message}"
+rescue => e
+  puts "Error genérico"
+else
+  puts "Todo salió bien"
+ensure
+  puts "Gracias por usar nuestro sistema"
+end
